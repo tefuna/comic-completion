@@ -21,10 +21,10 @@ class Comic:
         object.__setattr__(self, "dirname", Path(self.path).name)
 
         # title
-        title = REG_TITLE.findall(self.dirname)
-        if len(title) != 1:
+        title = Comic.get_title_from_path(self.path)
+        if title == "":
             raise ValueError(f"cannot find title from dirname : {self.dirname}")
-        object.__setattr__(self, "title", title[0])
+        object.__setattr__(self, "title", title)
 
         # volume count
         vol_count = REG_VOL_COUNT.findall(self.dirname)
@@ -32,6 +32,14 @@ class Comic:
             raise ValueError(f"cannot find number of volumes : {self.title}")
         if int(vol_count[0]) > len(self.volumes):
             raise ValueError(f"insufficient volume : {self.title}")
+
+    @staticmethod
+    def get_title_from_path(path: str) -> str:
+        title = REG_TITLE.findall(Path(path).name)
+        if len(title) != 1:
+            # TODO return optional type
+            return ""
+        return title[0]
 
     def split_valid_volumes(self) -> Tuple[List[Volume], List[Volume]]:
         vol_std = []

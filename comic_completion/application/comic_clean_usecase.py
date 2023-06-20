@@ -16,21 +16,22 @@ log = getLogger(__name__)
 
 
 class ComicCleanUseCase:
-    def __init__(self, path: str):
-        self.__path = path
+    def __init__(self):
+        pass
 
-    def validate(self) -> List[str]:
+    def validate(self, path: str) -> List[str]:
         # 読み込み：volumes
+        comic_title = Comic.get_title_from_path(path)
         volumes: List[Volume] = []
-        vol_names = list(Path(self.__path).iterdir())
+        vol_names = list(Path(path).iterdir())
         if not vol_names:
             raise ValueError("no volume exist")
         for vol_name in vol_names:
-            volume = Volume(vol_name.name, str(vol_name.resolve()))
+            volume = Volume(vol_name.name, str(vol_name.resolve()), comic_title)
             volumes.append(volume)
 
         # 読み込み：comic
-        comic = Comic(self.__path, volumes)
+        comic = Comic(path, volumes)
         self.__comic = comic
 
         # 内容検証
@@ -57,7 +58,11 @@ class ComicCleanUseCase:
         # リネーム実行
         self.__rename_in(renames)
 
-        return t[1]
+        # エラー巻タイトルのリターン
+        errors: List[str] = []
+        for bad_volume in t[1]:
+            errors.append(bad_volume.name)
+        return errors
 
     def rename_spec(self, vol_name: str, id: str, subid: str) -> None:
         id_o = Id(id)
@@ -72,8 +77,8 @@ class ComicCleanUseCase:
         page_num = 1
         for page in volume.pages:
             ext = Path(page).suffix
-            name_src = f"{volume.path}/{page}"
-            name_dst = f"{volume.path}/{id.value}-{subid.value}-{page_num:03}{ext}"
+            name_src = f"{volume.path}\\{page}"
+            name_dst = f"{volume.path}\\{id.value}-{subid.value}-{page_num:03}{ext}"
             renames.append((name_src, name_dst))
             page_num += 1
         return renames
@@ -81,9 +86,10 @@ class ComicCleanUseCase:
     def __rename_in(self, renames: List[Tuple]) -> None:
         if RENAME_DRYRUN == IS_RENAME_DRYRUN:
             Path(RENAME_DRYRUN_PATH).parent.mkdir(parents=True, exist_ok=True)
-            with open(RENAME_DRYRUN_PATH, mode="w") as f:
+            with open(RENAME_DRYRUN_PATH, mode="w", encoding='utf-8') as f:
                 for rename_tup in renames:
                     f.write("\t".join(rename_tup) + "\n")
+            log.info("rename with dryrun. please see dryrun result file.")
         else:
             for rename_tup in renames:
                 os.rename(rename_tup[0], rename_tup[1])

@@ -18,10 +18,10 @@ log = getLogger(__name__)
 
 def main(path: str, id: str, spec_vol_name: str, subid: str) -> None:
     log.info("begin comic validation")
-    comic_clean_usecase = ComicCleanUseCase(path)
-    errors = comic_clean_usecase.validate()
+    comic_clean_usecase = ComicCleanUseCase()
+    errors = comic_clean_usecase.validate(path)
     if errors:
-        log.info(f"invalid volumes or pages exists : {str(errors)}")
+        log.warn(f"invalid volumes or pages exists : {str(errors)}")
         print("invalid volumes or pages exists, but continue process.  PRESS ANY KEY...")
         input()
 
