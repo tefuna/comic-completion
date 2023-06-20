@@ -5,7 +5,7 @@ from typing import List
 
 NUM_NA = -1
 REG_NUM = re.compile(r" 第(\d+)巻$")
-REG_SUBTITLE = re.compile(r" (.+)$")
+REG_NUM_COMPLETE = re.compile(r"^第(\d+)巻$")
 REG_VALID_EXT = re.compile(r"(.jpg|.jpeg|.png)$", flags=re.IGNORECASE)
 
 
@@ -13,26 +13,27 @@ REG_VALID_EXT = re.compile(r"(.jpg|.jpeg|.png)$", flags=re.IGNORECASE)
 class Volume:
     name: str
     path: str
-    num: int = field(init=False, default=NUM_NA)
+    comic_title: str
     subtitle: str = field(init=False)
+    num: int = field(init=False, default=NUM_NA)
     pages: List[str] = field(default_factory=list)
 
     def __post_init__(self):
-        # num
-        num = REG_NUM.findall(self.name)
-        if len(num) == 1:
-            object.__setattr__(self, "num", int(num[0]))
-
         # subtitle
-        subtitle = REG_SUBTITLE.findall(self.name)
+        subtitle = re.findall(r"^" + self.comic_title + r" (.+)$", self.name)
         if not subtitle:
             raise ValueError("cannot get subtitle : " + self.name)
-        object.__setattr__(self, "subtitle", subtitle[-1])
+        object.__setattr__(self, "subtitle", subtitle[0])
+
+        # num
+        num_complete = REG_NUM_COMPLETE.findall(self.subtitle)
+        if len(num_complete) == 1:
+            object.__setattr__(self, "num", int(num_complete[0]))
 
         # pages
         pages = sorted(os.listdir(self.path))
         if not pages:
-            raise ValueError("cannot get subtitle : " + self.path)
+            raise ValueError("cannot get pages : " + self.path)
         object.__setattr__(self, "pages", pages)
 
     def validate_name(self, title: str) -> List[str]:

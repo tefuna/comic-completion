@@ -17,9 +17,9 @@ log = getLogger(__name__)
 
 
 def main(path: str) -> None:
-    comic_archive_usecase = ComicArchiveUseCase(path)
+    comic_archive_usecase = ComicArchiveUseCase()
     log.info("begin archive process")
-    comic_archive_usecase.archive()
+    comic_archive_usecase.archive(path)
 
 
 if __name__ == "__main__":

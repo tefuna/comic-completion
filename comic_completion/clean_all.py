@@ -18,16 +18,16 @@ log = getLogger(__name__)
 
 def main(path: str, id: str) -> None:
     log.info("begin comic validation")
-    comic_clean_usecase = ComicCleanUseCase(path)
-    errors = comic_clean_usecase.validate()
+    comic_clean_usecase = ComicCleanUseCase()
+    errors = comic_clean_usecase.validate(path)
     if errors:
-        log.info(f"invalid volumes or pages exists : {str(errors)}")
+        log.error(f"invalid volumes or pages exists : {str(errors)}")
         return
 
     log.info("begin renaming page files")
     errors = comic_clean_usecase.rename_all(id)
     if errors:
-        log.info(f"volumes that cannot rename exists : {str(errors)}")
+        log.error(f"volumes that cannot rename exists : {str(errors)}")
 
 
 if __name__ == "__main__":
