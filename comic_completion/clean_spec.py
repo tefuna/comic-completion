@@ -5,10 +5,6 @@ from logging import config, getLogger
 import yaml
 from application.comic_clean_usecase import ComicCleanUseCase
 from constant.constants import LOGGING_CONFIG
-from dotenv import load_dotenv
-
-load_dotenv()
-
 
 # logging
 config.dictConfig(

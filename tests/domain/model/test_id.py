@@ -1,9 +1,5 @@
 import pytest
 
-import sys
-import pprint
-pprint.pprint(sys.path)
-
 from comic_completion.domain.model.id import Id
 
 
