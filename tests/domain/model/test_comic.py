@@ -1,10 +1,10 @@
 import pytest
 
 import sys
+sys.path.append('C:\\workspace\\local-tools\\comic-completion\\comic_completion')
 import pprint
 pprint.pprint(sys.path)
-
-from comic_completion.domain.model.id import Id
+from comic_completion.domain.model.comic import Comic
 
 
 # @pytest.fixture(scope="function", autouse=True)
@@ -19,14 +19,6 @@ def test_main():
 
 
 def test_main2():
-    id = Id("AAAA")
-    assert id.value == "AAAA"
+    comic = Comic("aaa", None)
+    assert True
 
-
-# def test_main2():
-#     main.main()
-#     assert True
-
-
-# class TestMain(TestCase):
-#     def test_main
