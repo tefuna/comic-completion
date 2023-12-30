@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "comic-completion"
-version = "0.1.0"
+version = "1.0.0"
 description = ""
 authors = ["tefuna <tefuna@gmail.com>"]
 readme = "README.md"
@@ -13,24 +13,32 @@ python-dotenv = "^1.0.0"
 
 
 [tool.poetry.group.dev.dependencies]
-flake8 = "^6.0.0"
-black = "^23.3.0"
-isort = "^5.12.0"
-pytest = "^7.3.2"
+ruff = "^0.1.9"
+pytest = "^7.4.3"
 pytest-cov = "^4.1.0"
-sphinx = "^7.0.1"
-taskipy = "^1.11.0"
+sphinx = "^7.2.6"
+taskipy = "^1.12.2"
 
-[tool.black]
+[tool.ruff]
 line-length = 119
+
+[tool.ruff.lint]
+ignore = []
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+docstring-code-format = false
 
 [tool.pytest.ini_options]
 pythonpath = "comic_completion"
 testpaths = ["tests"]
 
-[tool.taskipy.tasks]
-test = "poetry run pytest -v"
-
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.taskipy.tasks]
+test = "poetry run pytest -v"
