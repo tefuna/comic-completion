@@ -77,8 +77,8 @@ class ComicCleanUseCase:
         page_num = 1
         for page in volume.pages:
             ext = Path(page).suffix
-            name_src = f"{volume.path}\\{page}"
-            name_dst = f"{volume.path}\\{id.value}-{subid.value}-{page_num:03}{ext}"
+            name_src = f"{volume.path}/{page}"
+            name_dst = f"{volume.path}/{id.value}-{subid.value}-{page_num:03}{ext}"
             renames.append((name_src, name_dst))
             page_num += 1
         return renames
