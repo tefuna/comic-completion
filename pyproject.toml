@@ -54,4 +54,6 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.taskipy.tasks]
 test = "poetry run pytest -v"
+check = "poetry run ruff check ."
+format = "poetry run ruff format ."
 mypy = "poetry run mypy comic_completion tests"

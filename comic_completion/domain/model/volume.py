@@ -6,7 +6,7 @@ from typing import List
 NUM_NA = -1
 REG_NUM = re.compile(r" 第(\d+)巻$")
 REG_NUM_COMPLETE = re.compile(r"^第(\d+)巻$")
-REG_VALID_EXT = re.compile(r"(.jpg|.jpeg|.png)$", flags=re.IGNORECASE)
+REG_VALID_EXT = re.compile(r"(.jpg|.jpeg|.png|.avif)$", flags=re.IGNORECASE)
 
 
 @dataclass(frozen=True)
