@@ -8,6 +8,6 @@ REGEX = re.compile("[A-Z0-9]{4}")
 class Id:
     value: str
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if REGEX.match(self.value) is None:
             raise ValueError("invalid value: " + self.value)

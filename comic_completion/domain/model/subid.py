@@ -9,7 +9,7 @@ class Subid:
     seed: str
     scale: int
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         if self.scale == self.TYPE_STD:
             object.__setattr__(self, "value", self.seed)
         else:

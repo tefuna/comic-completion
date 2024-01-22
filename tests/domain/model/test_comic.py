@@ -1,8 +1,10 @@
+import sys
+
 import pytest
 
-import sys
-sys.path.append('C:\\workspace\\local-tools\\comic-completion\\comic_completion')
+sys.path.append("C:\\workspace\\local-tools\\comic-completion\\comic_completion")
 import pprint
+
 pprint.pprint(sys.path)
 from comic_completion.domain.model.comic import Comic
 
@@ -21,4 +23,3 @@ def test_main():
 def test_main2():
     comic = Comic("aaa", None)
     assert True
-

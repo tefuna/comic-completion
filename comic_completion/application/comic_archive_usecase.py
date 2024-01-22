@@ -8,7 +8,7 @@ ARCHIVE_EXT = "zip"
 
 
 class ComicArchiveUseCase:
-    def __init__(self):
+    def __init__(self) -> None:
         pass
 
     def archive(self, path: str) -> None:
