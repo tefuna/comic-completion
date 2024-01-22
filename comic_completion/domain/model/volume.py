@@ -18,7 +18,7 @@ class Volume:
     num: int = field(init=False, default=NUM_NA)
     pages: List[str] = field(default_factory=list)
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         # subtitle
         subtitle = re.findall(r"^" + self.comic_title + r" (.+)$", self.name)
         if not subtitle:

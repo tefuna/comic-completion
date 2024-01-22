@@ -16,7 +16,7 @@ log = getLogger(__name__)
 
 
 class ComicCleanUseCase:
-    def __init__(self):
+    def __init__(self) -> None:
         pass
 
     def validate(self, path: str) -> List[str]:

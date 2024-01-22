@@ -11,13 +11,13 @@ python = "^3.11"
 pyyaml = "^6.0"
 python-dotenv = "^1.0.0"
 
-
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.1.9"
 pytest = "^7.4.3"
 pytest-cov = "^4.1.0"
 sphinx = "^7.2.6"
 taskipy = "^1.12.2"
+mypy = "^1.8.0"
 
 [tool.ruff]
 line-length = 119
@@ -32,6 +32,18 @@ skip-magic-trailing-comma = false
 line-ending = "auto"
 docstring-code-format = false
 
+[tool.mypy]
+show_error_context = true
+show_column_numbers = true
+ignore_missing_imports = true
+disallow_untyped_defs = true
+no_implicit_optional = true
+warn_return_any = true
+warn_redundant_casts = true
+# mypy エラーに該当しない箇所に `# type: ignore` コメントが付与されていたら警告
+# # type: ignore` が付与されている箇所はエラーを無視
+warn_unused_ignores = true
+
 [tool.pytest.ini_options]
 pythonpath = "comic_completion"
 testpaths = ["tests"]
@@ -42,3 +54,4 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.taskipy.tasks]
 test = "poetry run pytest -v"
+mypy = "poetry run mypy comic_completion tests"

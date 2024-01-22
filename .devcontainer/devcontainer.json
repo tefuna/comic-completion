@@ -14,7 +14,9 @@
 				"oderwat.indent-rainbow",
 				"mosapride.zenkaku",
 				"redhat.vscode-yaml",
-				"tamasfe.even-better-toml"
+				"tamasfe.even-better-toml",
+				"Gruntfuggly.todo-tree",
+				"ms-python.mypy-type-checker"
 			],
 			"settings": {
 				"[python]": {

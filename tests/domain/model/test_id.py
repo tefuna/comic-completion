@@ -1,24 +1,25 @@
+import pprint
+import sys
+
 import pytest
 
-import sys
-import pprint
-pprint.pprint(sys.path)
-
 from comic_completion.domain.model.id import Id
+
+pprint.pprint(sys.path)
 
 
 # @pytest.fixture(scope="function", autouse=True)
 @pytest.fixture()
-def setup():
+def setup() -> None:
     print("setup")
     yield
 
 
-def test_main():
+def test_main() -> None:
     assert True
 
 
-def test_main2():
+def test_main2() -> None:
     id = Id("AAAA")
     assert id.value == "AAAA"
 

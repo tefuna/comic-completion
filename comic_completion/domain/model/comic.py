@@ -16,7 +16,7 @@ class Comic:
     title: str = field(init=False)
     volumes: List[Volume] = field(default_factory=list)
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         # dirname
         object.__setattr__(self, "dirname", Path(self.path).name)
 
@@ -35,7 +35,7 @@ class Comic:
 
     @staticmethod
     def get_title_from_path(path: str) -> str:
-        title = REG_TITLE.findall(Path(path).name)
+        title: list[str] = REG_TITLE.findall(Path(path).name)
         if len(title) != 1:
             # TODO return optional type
             return ""
@@ -52,7 +52,7 @@ class Comic:
         return (vol_std, vol_sub)
 
     # TODO Optionalにする
-    def get_volume_by_name(self, volume_name) -> Volume:
+    def get_volume_by_name(self, volume_name: str) -> Volume:
         for volume in self.volumes:
             if volume.name == volume_name:
                 return volume
