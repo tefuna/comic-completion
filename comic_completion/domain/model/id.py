@@ -1,7 +1,7 @@
 import re
 from dataclasses import dataclass
 
-REGEX = re.compile("[A-Z0-9]{4}")
+REGEX = re.compile("[A-Z0-9_]{4}")
 
 
 @dataclass(frozen=True)
